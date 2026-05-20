@@ -2,17 +2,15 @@ import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { App } from './app';
+import { Header } from './header';
+import { Contacts } from './contacts/contacts';
+import { ContactDetail } from './contacts/contact-detail/contact-detail';
+import { ContactList } from './contacts/contact-list/contact-list';
 
 @NgModule({
-  declarations: [
-    App
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-  ],
-  bootstrap: [App]
+  declarations: [App, Contacts, ContactDetail, ContactList],
+  imports: [BrowserModule, Header],
+  providers: [provideBrowserGlobalErrorListeners()],
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}
