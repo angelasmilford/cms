@@ -5,12 +5,12 @@ import { Contact } from '../contact.model';
   selector: 'app-contact-list',
   standalone: false,
   templateUrl: './contact-list.html',
-  styleUrl: './contact-list.css',
+  styleUrls: ['./contact-list.css'],
 })
 export class ContactList {
   contacts: Contact[] = [
     new Contact(
-      "1",
+      '1',
       'R. Kent Jackson',
       'jacksonk@byui.edu',
       '208-496-3771',
