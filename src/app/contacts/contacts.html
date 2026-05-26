@@ -1,9 +1,15 @@
 <div class="row">
+    <!-- Contact List -->
     <div class="col-md-5">
-        <app-contact-list></app-contact-list>
+        <app-contact-list 
+            (contactSelected)="selectedContact = $event">
+        </app-contact-list>
     </div>
 
+    <!-- Contact Detail -->
     <div class="col-md-4">
-        <app-contact-detail></app-contact-detail>
+        <app-contact-detail 
+            [contact]="selectedContact">
+        </app-contact-detail>
     </div>
 </div>

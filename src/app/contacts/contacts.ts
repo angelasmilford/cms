@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Contact } from './contact.model';
 
 @Component({
   selector: 'app-contacts',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './contacts.html',
   styles: ``,
 })
-export class Contacts {}
+export class Contacts {
+  selectedContact!: Contact;
+}
