@@ -8,5 +8,10 @@ import { Contact } from './contact.model';
   styles: ``,
 })
 export class Contacts {
-  selectedContact!: Contact;
+  selectedContact: Contact;
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 }

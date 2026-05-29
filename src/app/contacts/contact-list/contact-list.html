@@ -25,28 +25,12 @@
             <!-- Contact List -->
             <div class="panel-body">
                 <div class="list-group"> <!-- list-group-item -->
-                    <a
-                        href="#"
-                        class="list-group-item clearfix"
+                    <app-contact-item 
                         *ngFor="let contact of contacts"
-                        (click)="onSelectedContact(contact)"
-                        style="cursor: pointer;"
+                        [contact]="contact"
+                        (contactSelected)="onContactSelected(contact)"
                     >
-                        <!-- Contact Name displayed on the left -->
-                        <div class="pull-left">
-                            <h4 class="list-group-item-heading">{{ contact.displayName }}</h4>
-                        </div>
-
-                        <!-- Contact Image displayed on the right -->
-                        <span class="pull-right">
-                            <img
-                                [src]="contact.imageUrl"
-                                alt="{{ contact.name }}"
-                                class="img-responsive"
-                                style="max-height: 60px;"
-                            >
-                        </span>
-                    </a>
+                    </app-contact-item>
                 </div>
             </div>
         </div>

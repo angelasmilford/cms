@@ -1,0 +1,21 @@
+<a
+    href="#"
+    class="list-group-item clearfix"
+    (click)="onSelected()"
+    style="cursor: pointer;"
+>
+    <!-- Contact Name displayed on the left -->
+    <div class="pull-left">
+        <h4 class="list-group-item-heading">{{ contact.displayName }}</h4>
+    </div>
+
+    <!-- Contact Image displayed on the right -->
+    <span class="pull-right">
+        <img
+            [src]="contact.imageUrl"    
+            alt="{{ contact.name }}"
+            class="img-responsive"
+            style="max-height: 60px;"
+        >
+    </span>
+</a>

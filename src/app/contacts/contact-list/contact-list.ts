@@ -9,7 +9,7 @@ import { Contact } from '../contact.model';
 })
 export class ContactList {
 
-  @Output() contactSelected = new EventEmitter<Contact>();
+  @Output() contactWasSelected = new EventEmitter<Contact>();
 
   contacts: Contact[] = [
     new Contact(
@@ -41,7 +41,7 @@ export class ContactList {
     
   }
 
-  onSelectedContact(contact: Contact) {
-    this.contactSelected.emit(contact);
+  onContactSelected(contact: Contact) {
+    this.contactWasSelected.emit(contact);
   }
 }
