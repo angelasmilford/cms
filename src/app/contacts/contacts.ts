@@ -8,7 +8,7 @@ import { Contact } from './contact.model';
   styles: ``,
 })
 export class Contacts {
-  selectedContact: Contact;
+  selectedContact: Contact | null = null;
 
   constructor() { }
 

@@ -9,4 +9,9 @@ import { Contact } from '../contact.model';
 })
 export class ContactDetail {
   @Input() contact!: Contact;
+
+  constructor() { }
+
+  ngOnInit() {
+  }
 }

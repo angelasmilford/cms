@@ -1,47 +1,12 @@
 <div class="panel panel-default">
 
-    <!-- Nothing Selected -->
-    <div class="panel-default" *ngIf="!contact">
-
-        <div class="panel-heading">
-            <div class="row">
-                <br><br><br>
-                <div class="col-xs-12 text-right">
-                    <button class="btn btn-primary" style="margin-right: 5px;">
-                        Edit
-                    </button>
-
-                    <button class="btn btn-danger">
-                        Delete
-                    </button>
-                    <br><br>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel-body">
-
-            <p>
-                <strong>Email:</strong>
-            </p>
-
-            <p>
-                <strong>Phone:</strong>
-            </p>
-
-        </div>
-
-    </div>
-
     <!-- Contact Selected -->
-    <div class="panel-default" *ngIf="contact">
-
+    <div class="panel-default">
         <!-- Header -->
         <div class="panel-heading">
 
             <!-- Name Row -->
             <div class="row">
-
                 <div class="col-xs-12">
                     <h2>{{ contact.name }}</h2>
                 </div>
@@ -52,21 +17,19 @@
 
             <!-- Image + Buttons Row -->
             <div class="row">
-
                 <!-- Image -->
                 <div class="col-xs-4">
-
                     <img
                         [src]="contact.imageUrl"
                         class="img-responsive"
                         style="width: 80px;"
                     >
-
                 </div>
 
                 <!-- Buttons -->
                 <div class="col-xs-8 text-right">
                     <br>
+                    
                     <button
                         class="btn btn-primary"
                         style="margin-right: 5px;"
@@ -77,16 +40,12 @@
                     <button class="btn btn-danger">
                         Delete
                     </button>
-
                 </div>
-
             </div>
-
         </div>
 
         <!-- Body -->
         <div class="panel-body">
-
             <p>
                 <strong>Email:</strong>
                 {{ contact.email }}
@@ -96,8 +55,6 @@
                 <strong>Phone:</strong>
                 {{ contact.phone }}
             </p>
-
         </div>
-
     </div>
 </div>

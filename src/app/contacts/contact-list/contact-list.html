@@ -26,9 +26,9 @@
             <div class="panel-body">
                 <div class="list-group"> <!-- list-group-item -->
                     <app-contact-item 
-                        *ngFor="let contact of contacts"
-                        [contact]="contact"
-                        (contactSelected)="onContactSelected(contact)"
+                        *ngFor="let contactEl of contacts"
+                        [contact]="contactEl"
+                        (contactSelected)="onSelected(contactEl)"
                     >
                     </app-contact-item>
                 </div>

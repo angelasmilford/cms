@@ -8,8 +8,8 @@ import { Contact } from '../contact.model';
   styleUrls: ['./contact-list.css'],
 })
 export class ContactList {
-
-  @Output() contactWasSelected = new EventEmitter<Contact>();
+  // contactWasSelected
+  @Output() selectedContactEvent = new EventEmitter<Contact>();
 
   contacts: Contact[] = [
     new Contact(
@@ -41,7 +41,7 @@ export class ContactList {
     
   }
 
-  onContactSelected(contact: Contact) {
-    this.contactWasSelected.emit(contact);
+  onSelected(contact: Contact) { // onContactSelected
+    this.selectedContactEvent.emit(contact);
   }
 }
