@@ -9,9 +9,9 @@ import { Component, signal } from '@angular/core';
 export class App {
   protected readonly title = signal('cms');
 
-  loadedFeature = 'contact';
+  selectedFeature = 'documents';
 
-  onNavigate(feature: string) {
-    this.loadedFeature = feature;
+  switchView(feature: string) {
+    this.selectedFeature = feature;
   }
 }
