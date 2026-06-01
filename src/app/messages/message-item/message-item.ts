@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './message-item.html',
   styleUrl: './message-item.css',
 })
-export class MessageItem {}
+export class MessageItem {
+  sender = 'SendersName';
+  messageText = 'MessageText';
+}
