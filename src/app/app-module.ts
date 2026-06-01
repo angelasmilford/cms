@@ -10,7 +10,7 @@ import { ContactItem } from './contacts/contact-item/contact-item';
 import { Documents } from './documents/documents';
 import { DocumentList } from './documents/document-list/document-list';
 import { DocumentDetail } from './documents/document-detail/document-detail';
-import { DoumentItem } from './documents/document-list/doument-item/doument-item';
+import { DoumentItem } from './documents/doument-item/doument-item';
 import { Messages } from './messages/messages';
 import { MessageItem } from './messages/message-item/message-item';
 import { MessageEdit } from './messages/message-edit/message-edit';
