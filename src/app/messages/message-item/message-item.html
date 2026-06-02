@@ -1,7 +1,10 @@
-<a class="list-group-item clearfix">
+<a 
+    class="list-group-item clearfix" 
+    (click)="onSelected()"
+>
     <div class="">
-        <span class="messageHeader">SendersName</span>
+        <span class="messageHeader">{{ message.sender }}</span>
 
-        <div class="messageText">MessageText</div>
+        <div class="messageText">{{ message.msgText }}</div>
     </div>
 </a>

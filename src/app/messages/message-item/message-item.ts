@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+import { Message } from '../message.model';
 
 @Component({
   selector: 'app-message-item',
@@ -9,4 +11,17 @@ import { Component } from '@angular/core';
 export class MessageItem {
   sender = 'SendersName';
   messageText = 'MessageText';
+
+  @Input() message: Message;
+
+  @Output() messageSelected = new EventEmitter<void>();
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  onSelected() {
+    this.messageSelected.emit();
+  }
 }
