@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { Document } from '../document.model';
 
 @Component({

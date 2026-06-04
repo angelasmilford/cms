@@ -9,7 +9,6 @@
     <div class="col-md-4">
         <!-- Add tag to load the Document Detail component -->
         <app-document-detail
-        
             *ngIf="selectedDocument; else noDocument"
             [document]="selectedDocument"
         ></app-document-detail>
