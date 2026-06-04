@@ -17,4 +17,8 @@ export class DocumentItem {
 
   ngOnInit() {
   }
+
+  onSelected() {
+    this.documentSelected.emit();
+  }
 }
