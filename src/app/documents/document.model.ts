@@ -19,3 +19,9 @@ export class Contact {
         this.children = children;
     }
 }
+
+export class Document {
+    constructor(public name: string) {
+        
+    }
+}
