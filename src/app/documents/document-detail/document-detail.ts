@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { Document } from '../document.model';
 
 @Component({
   selector: 'app-document-detail',
   standalone: false,
   templateUrl: './document-detail.html',
-  styles: ``,
+  styleUrl: './document-detail.css',
 })
-export class DocumentDetail {}
+export class DocumentDetail {
+  @Input() document!: Document;
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+}
