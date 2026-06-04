@@ -21,7 +21,12 @@ export class Contact {
 }
 
 export class Document {
-    constructor(public name: string) {
+    constructor(
+        public id: string, 
+        public name: string, 
+        public description: string, 
+        public url: string
+    ) {
         
     }
 }
