@@ -15,6 +15,7 @@ import { Messages } from './messages/messages';
 import { MessageItem } from './messages/message-item/message-item';
 import { MessageEdit } from './messages/message-edit/message-edit';
 import { MessageList } from './messages/message-list/message-list';
+import { DropdownDirective } from './shared/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { MessageList } from './messages/message-list/message-list';
     MessageEdit,
     MessageList,
   ],
-  imports: [BrowserModule, Header],
+  imports: [BrowserModule, Header, DropdownDirective],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
 })
