@@ -21,20 +21,16 @@ export class MessageEdit {
   }
 
   onSendMessage() {
-    // Get the value stored in the subject input element
     const subject = this.subjectInputRef.nativeElement.value;
-    // Get the value stored in the msgText input element
     const msgText = this.messageInputRef.nativeElement.value;
-    // Create a new Message object
-    const newMessage = new Message('1', subject, msgText, this.currentSender);
-    // Assign a hardcoded number to the id property of the new Message object
-    newMessage.id = '1';
-    // Assign the value of the currentSender class variable to the sender property of the new Message object
-    newMessage.sender = this.currentSender;
-    // Assign the values retrieved from the subject and msgText input elements to the corresponding properties of the new Message object
-    newMessage.subject = subject;
-    newMessage.msgText = msgText;
-    // Call the addMessageEvent emitter’s emit() method and pass it the new Message object just created.
+
+    const newMessage = new Message(
+      '1', 
+      subject, 
+      msgText, 
+      this.currentSender
+    );
+    
     this.addMessageEvent.emit(newMessage);
   }
 
