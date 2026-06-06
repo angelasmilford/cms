@@ -20,6 +20,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
 @NgModule({
   declarations: [
     App,
+    Header,
     Contacts,
     ContactDetail,
     ContactList,
@@ -33,7 +34,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
     MessageEdit,
     MessageList,
   ],
-  imports: [BrowserModule, Header, DropdownDirective],
+  imports: [BrowserModule, DropdownDirective],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
 })
