@@ -10,9 +10,6 @@ import { Contacts } from '../contacts';
   styleUrls: ['./contact-list.css'],
 })
 export class ContactList {
-  // contactWasSelected
-  @Output() selectedContactEvent = new EventEmitter<Contact>();
-
   contacts: Contact[] = [];
 
   constructor(private contactService: ContactService) { }
@@ -26,6 +23,6 @@ export class ContactList {
   }
 
   onSelected(contact: Contact) { // onContactSelected
-    this.selectedContactEvent.emit(contact);
+    this.contactService.contactSelectedEvent.emit(contact);
   }
 }
