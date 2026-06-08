@@ -3,8 +3,8 @@
     (click)="onSelected()"
 >
     <div class="">
-        <span class="messageHeader">{{ message.sender }}</span>
+        <span class="messageHeader">{{ messageSender }}</span>
 
-        <div class="messageText">{{ message.msgText }}</div>
+        <div class="messageText">{{ message?.msgText }}</div>
     </div>
 </a>
