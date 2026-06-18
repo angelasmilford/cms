@@ -43,4 +43,11 @@ export class DocumentDetail {
       this.nativeWindow.open(this.document.url);
     }
   }
+
+  onDelete() {
+    if(this.document) {
+      this.documentService.deleteDocument(this.document);
+      // route back to the '/documents' URL
+    }
+  }
 }
