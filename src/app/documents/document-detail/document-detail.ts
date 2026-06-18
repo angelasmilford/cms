@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
+import { WindowRefService } from '../../window-ref.service';
 
 @Component({
   selector: 'app-document-detail',
@@ -12,11 +13,15 @@ import { DocumentService } from '../document.service';
 })
 export class DocumentDetail {
   document: Document | null = null;
+  nativeWindow: any;
 
   constructor(private documentService: DocumentService,
               private route: ActivatedRoute,
-              private router: Router
-  ) { }
+              private router: Router,
+              private windowRefService: WindowRefService
+  ) { 
+    this.nativeWindow = windowRefService.getNativeWindow();
+  }
 
   ngOnInit() {
     this.route.params
@@ -31,5 +36,11 @@ export class DocumentDetail {
 
   onEditDocument() {
     this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onView() {
+    if(this.document && this.document.url) {
+      this.nativeWindow.open(this.document.url);
+    }
   }
 }
