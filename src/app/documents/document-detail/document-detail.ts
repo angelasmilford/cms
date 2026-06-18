@@ -28,4 +28,8 @@ export class DocumentDetail {
         }
       );
   }
+
+  onEditDocument() {
+    this.router.navigate(['edit'], {relativeTo: this.route});
+  }
 }
