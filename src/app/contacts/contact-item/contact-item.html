@@ -1,8 +1,9 @@
 <a
     href="#"
     class="list-group-item clearfix"
-    (click)="onSelected()"
     style="cursor: pointer;"
+    [routerLink]="[contact.id]"
+    routerLinkActive="active"
 >
     <!-- Contact Name displayed on the left -->
     <div class="pull-left">

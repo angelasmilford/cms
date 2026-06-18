@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
-import { Contacts } from '../contacts';
 
 @Component({
   selector: 'app-contact-list',
@@ -25,9 +24,5 @@ export class ContactList {
 
   onNewContact() {
     this.router.navigate(['new'], {relativeTo: this.route});
-  }
-
-  onSelected(contact: Contact) { // onContactSelected
-    this.contactService.contactSelectedEvent.emit(contact);
   }
 }
