@@ -2,7 +2,6 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Document } from '../document.model';
-
 import { DocumentService } from '../document.service';
 
 @Component({

@@ -8,10 +8,9 @@ import { MOCKCONTACTS } from '../contacts/MOCKCONTACTS';
 
 export class ContactService {
     contactSelectedEvent = new EventEmitter<Contact>();
+    contactChangedEvent = new EventEmitter<Contact[]>();
 
-    contacts: Contact[] = [
-
-    ];
+    contacts: Contact[] = [];
 
     constructor() {
         this.contacts = MOCKCONTACTS;
@@ -21,7 +20,7 @@ export class ContactService {
         return this.contacts.slice();
     }
 
-    getContact(id: string): Contact {
+    getContact(id: string) {
         // FOR each contact in the contacts list
         for(let contact of this.contacts) {
             // IF contact.id equals the id THEN
@@ -36,4 +35,19 @@ export class ContactService {
         // RETURN null
         return null;
     } 
+
+    deleteContact(contact: Contact) {
+        if(!contact) {
+            return;
+        }
+
+        const pos = this.contacts.indexOf(contact);
+
+        if(pos < 0) {
+            return;
+        }
+
+        this.contacts.splice(pos, 1);
+        this.contactChangedEvent.emit(this.contacts.slice());
+    }
 }

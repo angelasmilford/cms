@@ -31,4 +31,12 @@ export class ContactDetail {
   onEditContact() {
     this.router.navigate(['edit'], {relativeTo: this.route});
   }
+
+  onDelete() {
+    if(this.contact) {
+      this.contactService.deleteContact(this.contact);
+      
+      this.router.navigate(['/contacts']);
+    }
+  }
 }
