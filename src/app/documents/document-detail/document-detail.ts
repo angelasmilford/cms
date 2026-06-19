@@ -47,7 +47,8 @@ export class DocumentDetail {
   onDelete() {
     if(this.document) {
       this.documentService.deleteDocument(this.document);
-      // route back to the '/documents' URL
+      
+      this.router.navigate(['/documents']);
     }
   }
 }
