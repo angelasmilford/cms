@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { Injectable, EventEmitter } from '@angular/core';
 import { Contact } from '../contacts/contact.model';
 import { MOCKCONTACTS } from '../contacts/MOCKCONTACTS';
@@ -9,6 +10,7 @@ import { MOCKCONTACTS } from '../contacts/MOCKCONTACTS';
 export class ContactService {
     contactSelectedEvent = new EventEmitter<Contact>();
     contactChangedEvent = new EventEmitter<Contact[]>();
+    contactListChangedEvent = new Subject<Document[]>();
 
     contacts: Contact[] = [];
 

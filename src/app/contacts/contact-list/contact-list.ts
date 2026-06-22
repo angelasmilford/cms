@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Contact } from '../contact.model';
@@ -10,8 +11,10 @@ import { ContactService } from '../contact.service';
   templateUrl: './contact-list.html',
   styleUrls: ['./contact-list.css'],
 })
-export class ContactList {
+export class ContactList implements OnDestroy {
   contacts: Contact[] = [];
+
+  private subscription: Subscription;
 
   constructor(private contactService: ContactService,
               private router: Router, 
@@ -21,12 +24,16 @@ export class ContactList {
   ngOnInit() {
     this.contacts = this.contactService.getContacts();
     
-    this.contactService.contactChangedEvent
+    this.subscription = this.contactService.contactChangedEvent
       .subscribe(
         (contacts: Contact[]) => {
           this.contacts = contacts;
         }
       )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onNewContact() {
