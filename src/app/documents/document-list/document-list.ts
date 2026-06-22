@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Document } from '../document.model';
@@ -10,8 +11,10 @@ import { DocumentService } from '../document.service';
   templateUrl: './document-list.html',
   styleUrl: './document-list.css',
 })
-export class DocumentList {
+export class DocumentList implements OnDestroy {
   documents: Document[] = [];
+
+  private subscription: Subscription;
 
   constructor(private documentService: DocumentService,
               private router: Router,
@@ -21,12 +24,16 @@ export class DocumentList {
   ngOnInit() {
     this.documents = this.documentService.getDocuments();
 
-    this.documentService.documentChangedEvent
+    this.subscription = this.documentService.documentChangedEvent
       .subscribe(
         (documents: Document[]) => {
           this.documents = documents;
         }
       )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   onNewDocument() {
