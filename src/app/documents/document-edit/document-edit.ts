@@ -4,6 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-document-edit',
   standalone: false,
   templateUrl: './document-edit.html',
-  styles: ``,
+  styleUrl: './document-edit.css',
 })
-export class DocumentEdit {}
+export class DocumentEdit {
+  onCancel() {
+    
+  }
+}
