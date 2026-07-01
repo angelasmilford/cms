@@ -1,3 +1,11 @@
 input.ng-invalid {
   border: 1px solid red;
 }
+
+p {
+  background-color: red;
+  color: black;
+  font-size: 15px;
+  border: 1px solid darkred;
+  padding: 10px;
+}
