@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form id="contact-edit">
+    <form id="contact-edit" #f="ngForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="name">Name:</label>
@@ -9,7 +9,11 @@
             id="name"
             class="form-control required"
             size="120"
-            max="120">
+            max="120"
+            name="name"
+            #name="ngModel"
+            required
+          >
         </div>
       </div>
 
@@ -21,7 +25,20 @@
             id="email"
             class="form-control required"
             size="120"
-            max="255">
+            max="255"
+            name="email"
+            #email="ngModel"
+            required
+            pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <div>
+            Enter a valid email address
+          </div>
         </div>
       </div>
 
@@ -33,7 +50,11 @@
             id="phone"
             class="form-control invalid"
             size="150"
-            max="255">
+            max="255"
+            name="phone"
+            #phone="ngModel"
+            pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*"
+          >
 
         </div>
       </div>
@@ -46,7 +67,10 @@
             id="imageUrl"
             class="form-control"
             size="150"
-            max="255">
+            max="255"
+            name="imageUrl"
+            #imageUrl="ngModel"
+          >
         </div>
       </div>
 
@@ -72,8 +96,20 @@
 
       <div class="row">
         <div class="col-xs-12 btn-toolbar">
-          <button class="btn btn-success" type="submit">Save</button>
+          <button 
+            class="btn btn-success" 
+            type="submit"
+            *ngIf="!f.valid"
+          >Save</button>
           <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 form-group">
+          <div class="alert alert-danger" *ngIf="!name.valid || !email.valid">
+            The Name and Email fields are required.
+          </div>
         </div>
       </div>
 
