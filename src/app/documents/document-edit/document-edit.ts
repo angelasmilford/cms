@@ -67,10 +67,4 @@ export class DocumentEdit {
 
     this.router.navigate(['/documents']);
   }
-
-  private initForm() {
-    let documentName = '';
-    let documentDescription = '';
-    let documentUrl = '';
-  }
 }

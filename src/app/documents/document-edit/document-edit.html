@@ -56,7 +56,7 @@
         <div class="col-sm-12 form-group">
           <div
             class="alert alert-danger"
-            *ngIf="!name.valid || !url.valid"
+            *ngIf="!name.valid && !url.valid"
           >
             The Document Title and Document URL are required fields
           </div>
@@ -78,9 +78,7 @@
           >Cancel</button>
         </div>
       </div>
-
     </form>
-
   </div>
 </div>
 
