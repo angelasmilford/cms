@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-contact-edit',
   standalone: false,
   templateUrl: './contact-edit.html',
-  styles: ``,
+  styleUrl: './contact-edit.css',
 })
 export class ContactEdit {}
