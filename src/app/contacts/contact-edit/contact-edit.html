@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form id="contact-edit" #f="ngForm" (ngSubmit)="onSubmit()">
+    <form id="contact-edit" #f="ngForm" (ngSubmit)="onSubmit(f)">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="name">Name:</label>
@@ -13,6 +13,7 @@
             name="name"
             #name="ngModel"
             required
+            [ngModel]="contact?.name"
           >
         </div>
       </div>
@@ -30,6 +31,7 @@
             #email="ngModel"
             required
             pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            [ngModel]="contact?.email"
           >
         </div>
       </div>
@@ -54,6 +56,7 @@
             name="phone"
             #phone="ngModel"
             pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*"
+            [ngModel]="contact?.phone"
           >
 
         </div>
@@ -70,6 +73,7 @@
             max="255"
             name="imageUrl"
             #imageUrl="ngModel"
+            [ngModel]="contact?.imageUrl"
           >
         </div>
       </div>
@@ -93,26 +97,32 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-xs-12 form-group">
+          <div 
+            class="alert alert-danger" 
+            *ngIf="!name.valid && !email.valid"
+          >
+            The Name and Email fields are required.
+          </div>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-xs-12 btn-toolbar">
           <button 
             class="btn btn-success" 
             type="submit"
-            *ngIf="!f.valid"
+            [disabled]="!f.valid"
           >Save</button>
-          <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
+
+          <button 
+            class="btn btn-primary" 
+            type="button" 
+            (click)="onCancel()"
+          >Cancel</button>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-xs-12 form-group">
-          <div class="alert alert-danger" *ngIf="!name.valid || !email.valid">
-            The Name and Email fields are required.
-          </div>
-        </div>
-      </div>
-
     </form>
   </div>
 </div>
