@@ -20,6 +20,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { DocumentEdit } from './documents/document-edit/document-edit';
 import { ContactEdit } from './contacts/contact-edit/contact-edit';
+import { ContactsFilterPipe } from './contacts/contacts-filter-pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ContactEdit } from './contacts/contact-edit/contact-edit';
     MessageList,
     DocumentEdit,
     ContactEdit,
+    ContactsFilterPipe,
   ],
   imports: [BrowserModule, FormsModule, DropdownDirective, AppRoutingModule],
   providers: [provideBrowserGlobalErrorListeners()],
