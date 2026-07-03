@@ -13,6 +13,7 @@ import { ContactService } from '../contact.service';
 })
 export class ContactList implements OnDestroy {
   contacts: Contact[] = [];
+  term: string = '';
 
   private subscription: Subscription;
 
@@ -38,5 +39,9 @@ export class ContactList implements OnDestroy {
 
   onNewContact() {
     this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  search(value: string) {
+    this.term = value;
   }
 }
