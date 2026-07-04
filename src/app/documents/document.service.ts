@@ -2,6 +2,7 @@ import { Subject } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Document } from "./document.model";
 import { MOCKDOCUMENTS } from "./MOCKDOCUMENTS";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -15,13 +16,36 @@ export class DocumentService {
 
     documents: Document[] = [];
 
-    constructor() {
-        this.documents = MOCKDOCUMENTS;
-        this.maxDocumentId = this.getMaxId();
+    private documentsUrl = 'https://asmcms-default-rtdb.firebaseio.com/documents';
+
+    constructor(private http: HttpClient) {
+        // this.documents = MOCKDOCUMENTS;
+        // this.maxDocumentId = this.getMaxId();
     }
 
     getDocuments() {
-        return this.documents.slice();
+        // return this.documents.slice();
+
+        this.http.get<Document[]>(this.documentsUrl)
+            .subscribe(
+                // Success method
+                (documents: Document[]) => {
+                    this.documents = documents;
+                    this.maxDocumentId = this.getMaxId();
+
+                    this.documents.sort((a, b) => {
+                        if(a.name < b.name) return -1;
+                        if(a.name > b.name) return 1;
+                        return 0;
+                    });
+
+                    this.documentListChangedEvent.next(this.documents.slice());
+                },
+                // Error method
+                (error: any) => {
+                    console.error(error);
+                }
+            )
     }
 
     getDocument(id: string) {
