@@ -1,7 +1,6 @@
 import { Subject } from 'rxjs';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Document } from "./document.model";
-import { MOCKDOCUMENTS } from "./MOCKDOCUMENTS";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -18,19 +17,14 @@ export class DocumentService {
 
     private documentsUrl = 'https://asmcms-default-rtdb.firebaseio.com/documents';
 
-    constructor(private http: HttpClient) {
-        // this.documents = MOCKDOCUMENTS;
-        // this.maxDocumentId = this.getMaxId();
-    }
+    constructor(private http: HttpClient) { }
 
-    getDocuments() {
-        // return this.documents.slice();
-
+    getDocuments(): void {
         this.http.get<Document[]>(this.documentsUrl)
             .subscribe(
                 // Success method
                 (documents: Document[]) => {
-                    this.documents = documents;
+                    this.documents = documents || [];
                     this.maxDocumentId = this.getMaxId();
 
                     this.documents.sort((a, b) => {
@@ -85,9 +79,7 @@ export class DocumentService {
 
         this.documents.splice(pos, 1);
         
-        const documentsListClone = this.documents.slice();
-
-        this.documentListChangedEvent.next(documentsListClone);
+        this.storeDocuments();
     }
 
     addDocument(newDocument: Document) {
@@ -101,9 +93,7 @@ export class DocumentService {
 
         this.documents.push(newDocument);
 
-        const documentsListClone = this.documents.slice();
-
-        this.documentListChangedEvent.next(documentsListClone);
+        this.storeDocuments();
     }
 
     updateDocument(originalDocument: Document, newDocument: Document) {
@@ -121,8 +111,25 @@ export class DocumentService {
 
         this.documents[pos] = newDocument;
 
-        const documentsListClone = this.documents.slice();
+        this.storeDocuments();
+    }
 
-        this.documentListChangedEvent.next(documentsListClone);
+    storeDocuments() {
+        const documents = JSON.stringify(this.documents);
+        
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+
+        this.http.put(
+            this.documentsUrl,
+            documents,
+            { headers: headers}
+        )
+        .subscribe(() => {
+            this.documentListChangedEvent.next(this.documents.slice());
+        }, (error) => {
+            console.error(error);
+        });
     }
 }
