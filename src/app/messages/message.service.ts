@@ -14,7 +14,7 @@ export class MessageService {
 
     maxMessageId: number;
 
-    private messagesUrl = '';
+    private messagesUrl = 'https://asmcms-default-rtdb.firebaseio.com/messages';
 
     constructor(private http: HttpClient) { }
 
