@@ -15,7 +15,7 @@ export class DocumentService {
 
     documents: Document[] = [];
 
-    private documentsUrl = 'https://asmcms-default-rtdb.firebaseio.com/documents';
+    private documentsUrl = 'https://asmcms-default-rtdb.firebaseio.com/documents.json';
 
     constructor(private http: HttpClient) { }
 
