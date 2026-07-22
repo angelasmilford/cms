@@ -1,6 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Message } from './message.model';
-import { MOCKMESSAGES } from './MOCKMESSAGES';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -9,35 +8,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class MessageService {
     messageChangedEvent = new EventEmitter<Message[]>();
+    maxMessageId: number;
 
     messages: Message[] = [];
 
-    maxMessageId: number;
-
-    private messagesUrl = 'https://asmcms-default-rtdb.firebaseio.com/messages.json';
+    private messagesUrl = 'http://localhost:3000/messages';
 
     constructor(private http: HttpClient) { }
 
     getMessages() {
-        // return this.messages.slice();
-        this.http.get<Message[]>(this.messagesUrl)
+        this.http.get<{ message: string; messages: Message[] }>(this.messagesUrl)
             .subscribe(
-                (messages: Message[]) => {
-                    this.messages = messages || [];
+                (responseData) => {
+                    this.messages = responseData.messages || [];
                     this.maxMessageId = this.getMaxId();
-
-                    this.messages.sort((a, b) => {
-                        if(a.subject < b.subject) return -1;
-                        if(a.subject > b.subject) return 1;
-                        return 0;
-                    });
-
-                    this.messageChangedEvent.emit(this.messages.slice());
+                    this.sortAndSend();
                 },
                 (error: any) => {
                     console.error(error);
                 }
-            )
+            );
     }
 
     getMessage(id:string) {
@@ -48,14 +38,6 @@ export class MessageService {
         }
 
         return null;
-    }
-
-    addMessage(messages: Message[]) {
-        // messages.push(message)
-        this.messages.push(...messages);
-
-        // emit(messages)
-        this.storeMessages();
     }
 
     getMaxId(): number {
@@ -72,22 +54,90 @@ export class MessageService {
         return maxId;
     }
 
-    storeMessages() {
-        const messages = JSON.stringify(this.messages);
+    // deleteMessage(message: Message) {
+    //     if(!message) {
+    //         return;
+    //     }
 
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json'
-        });
+    //     const pos = this.messages.findIndex(m => m.id === message.id);
 
-        this.http.put(
+    //     if(pos < 0) {
+    //         return;
+    //     }
+
+    //     this.http.delete(this.messagesUrl + '/' + message.id)
+    //     .subscribe(
+    //         (response: Response) => {
+    //             this.messages.splice(pos, 1);
+    //             this.sortAndSend();
+    //         }
+    //     });
+    // }
+
+    addMessage(newMessage: Message) {
+        if (!newMessage) {
+            return;
+        }
+
+        newMessage.id = '';
+
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+        this.http.post<{ message: string; messageObject: Message }>(
             this.messagesUrl,
-            messages,
+            newMessage,
             { headers: headers }
         )
-        .subscribe(() => {
-            this.messageChangedEvent.emit(this.messages.slice());
-        }, (error) => {
-            console.error(error);
+        .subscribe(
+            (responseData) => {
+                this.messages.push(responseData.messageObject);
+                this.sortAndSend();
+            }
+        );
+    }
+
+    updateMessage(originalMessage: Message, newMessage: Message) {
+        if(!originalMessage || !newMessage) {
+            return;
+        }
+
+        const pos = this.messages.findIndex(d => d.id === originalMessage.id);
+
+        if(pos < 0) {
+            return;
+        }
+
+        newMessage.id = originalMessage.id;
+        newMessage._id = originalMessage._id;
+
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+        this.http.put(
+            this.messagesUrl + '/' + originalMessage.id,
+            newMessage, 
+            { headers: headers }
+        )
+            .subscribe(
+                (response: Response) => {
+                    this.messages[pos] = newMessage;
+                    this.sortAndSend();
+                }
+            );
+    }
+
+    sortAndSend() {
+        this.messages.sort((a, b) => {
+            if(a.subject < b.subject) {
+                return -1;
+            }
+
+            if(a.subject > b.subject) {
+                return 1;
+            }
+
+            return 0;
         });
+
+        this.messageChangedEvent.next(this.messages.slice());
     }
 }

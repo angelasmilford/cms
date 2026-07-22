@@ -6,6 +6,7 @@ export class Contact {
         public email: string,
         public phone: string,
         public imageUrl: string,
-        public group: null | Contact[]
+        public group: null | Contact[],
+        public _id?: string
     ) { }
 }
