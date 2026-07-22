@@ -12,6 +12,7 @@ router.get('/', (req, res, next) => {
         documents: documents
       });
     })
+    
     .catch(error => {
       res.status(500).json({
         message: 'An error occurred',
@@ -37,11 +38,12 @@ router.post('/', (req, res, next) => {
         document: createdDocument
       });
     })
+
     .catch(error => {
-       res.status(500).json({
-          message: 'An error occurred',
-          error: error
-        });
+      res.status(500).json({
+        message: 'An error occurred',
+        error: error
+      });
     });
 });
 
@@ -58,13 +60,15 @@ router.put('/:id', (req, res, next) => {
             message: 'Document updated successfully'
           });
         })
+
         .catch(error => {
-           res.status(500).json({
-           message: 'An error occurred',
-           error: error
-         });
+          res.status(500).json({
+            message: 'An error occurred',
+            error: error
+          });
         });
     })
+
     .catch(error => {
       res.status(500).json({
         message: 'Document not found.',
@@ -82,17 +86,19 @@ router.delete("/:id", (req, res, next) => {
             message: "Document deleted successfully"
           });
         })
+
         .catch(error => {
-           res.status(500).json({
-           message: 'An error occurred',
-           error: error
-         });
+          res.status(500).json({
+            message: 'An error occurred',
+            error: error
+          });
         });
     })
+
     .catch(error => {
       res.status(500).json({
         message: 'Document not found.',
-        error: { document: 'Document not found'}
+        error: { document: 'Document not found' }
       });
     });
 });
