@@ -69,13 +69,13 @@ export class DocumentService {
         }
 
         // delete from database
-        this.http.delete('http://localhost:3000/documents/' + document.id)
-        .subscribe(
+        this.http.delete(this.documentsUrl + '/' + document.id)
+        .subscribe(() => {
             (response: Response) => {
                 this.documents.splice(pos, 1);
                 this.sortAndSend();
             }
-        );
+        });
     }
 
     addDocument(newDocument: Document) {
@@ -121,8 +121,11 @@ export class DocumentService {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
         // update database
-        this.http.put('http://localhost:3000/documents/' + originalDocument.id,
-        newDocument, { headers: headers })
+        this.http.put(
+            this.documentsUrl + '/' + originalDocument.id,
+            newDocument, 
+            { headers: headers }
+        )
             .subscribe(
                 (response: Response) => {
                     this.documents[pos] = newDocument;
