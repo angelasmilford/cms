@@ -15,31 +15,22 @@ export class DocumentService {
 
     documents: Document[] = [];
 
-    private documentsUrl = 'https://asmcms-default-rtdb.firebaseio.com/documents.json';
+    private documentsUrl = 'http://localhost:3000/documents';
 
     constructor(private http: HttpClient) { }
 
     getDocuments(): void {
-        this.http.get<Document[]>(this.documentsUrl)
+        this.http.get<{ message: string; documents: Document[] }>(this.documentsUrl)
             .subscribe(
-                // Success method
-                (documents: Document[]) => {
-                    this.documents = documents || [];
+                (responseData) => {
+                    this.documents = responseData.documents || [];
                     this.maxDocumentId = this.getMaxId();
-
-                    this.documents.sort((a, b) => {
-                        if(a.name < b.name) return -1;
-                        if(a.name > b.name) return 1;
-                        return 0;
-                    });
-
-                    this.documentListChangedEvent.next(this.documents.slice());
+                    this.sortAndSend();
                 },
-                // Error method
                 (error: any) => {
                     console.error(error);
                 }
-            )
+            );
     }
 
     getDocument(id: string) {
@@ -71,15 +62,20 @@ export class DocumentService {
             return;
         }
 
-        const pos = this.documents.indexOf(document);
+        const pos = this.documents.findIndex(d => d.id === document.id);
 
         if(pos < 0) {
             return;
         }
 
-        this.documents.splice(pos, 1);
-        
-        this.storeDocuments();
+        // delete from database
+        this.http.delete('http://localhost:3000/documents/' + document.id)
+        .subscribe(
+            (response: Response) => {
+                this.documents.splice(pos, 1);
+                this.sortAndSend();
+            }
+        );
     }
 
     addDocument(newDocument: Document) {
@@ -87,13 +83,24 @@ export class DocumentService {
             return;
         }
 
-        this.maxDocumentId++;
+        // make sure id of the new Document is empty
+        newDocument.id = '';
 
-        newDocument.id = this.maxDocumentId.toString();
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-        this.documents.push(newDocument);
-
-        this.storeDocuments();
+        // add to database
+        this.http.post<{ message: string, document: Document }>(
+            this.documentsUrl,
+            newDocument,
+            { headers: headers }
+        )
+        .subscribe(
+            (responseData) => {
+                // add new document to documents
+                this.documents.push(responseData.document);
+                this.sortAndSend();
+            }
+        );
     }
 
     updateDocument(originalDocument: Document, newDocument: Document) {
@@ -101,35 +108,42 @@ export class DocumentService {
             return;
         }
 
-        const pos = this.documents.indexOf(originalDocument);
+        const pos = this.documents.findIndex(d => d.id === originalDocument.id);
 
         if(pos < 0) {
             return;
         }
 
-        newDocument.id = originalDocument.id; 
+        // set the id of the new Document to the id of the old Document
+        newDocument.id = originalDocument.id;
+        newDocument._id = originalDocument._id;
 
-        this.documents[pos] = newDocument;
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-        this.storeDocuments();
+        // update database
+        this.http.put('http://localhost:3000/documents/' + originalDocument.id,
+        newDocument, { headers: headers })
+            .subscribe(
+                (response: Response) => {
+                    this.documents[pos] = newDocument;
+                    this.sortAndSend();
+                }
+            );
     }
 
-    storeDocuments() {
-        const documents = JSON.stringify(this.documents);
-        
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json'
+    sortAndSend() {
+        this.documents.sort((a, b) => {
+            if(a.name < b.name) {
+                return -1;
+            }
+
+            if(a.name > b.name) {
+                return 1;
+            }
+
+            return 0;
         });
 
-        this.http.put(
-            this.documentsUrl,
-            documents,
-            { headers: headers}
-        )
-        .subscribe(() => {
-            this.documentListChangedEvent.next(this.documents.slice());
-        }, (error) => {
-            console.error(error);
-        });
+        this.documentListChangedEvent.next(this.documents.slice());
     }
 }
