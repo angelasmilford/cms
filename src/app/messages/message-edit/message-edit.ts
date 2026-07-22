@@ -33,7 +33,7 @@ export class MessageEdit {
       this.currentSender
     );
     
-    this.messageService.addMessage([newMessage]);
+    this.messageService.addMessage(newMessage);
   }
 
   onClear() {

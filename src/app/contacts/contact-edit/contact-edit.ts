@@ -67,9 +67,9 @@ export class ContactEdit {
     );
 
     if (this.editMode && this.originalContact) {
-      this.contactService.updateDocument(this.originalContact, newContact);
+      this.contactService.updateContact(this.originalContact, newContact);
     } else {
-      this.contactService.addDocument(newContact);
+      this.contactService.addContact(newContact);
     }
 
     this.router.navigate(['/contacts']);
