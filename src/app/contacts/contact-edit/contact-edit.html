@@ -55,7 +55,7 @@
             max="255"
             name="phone"
             #phone="ngModel"
-            pattern="\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*"
+            pattern="^[0-9()+\-\s]{7,20}$"
             [ngModel]="contact?.phone"
           >
 
