@@ -20,15 +20,15 @@ export class DocumentService {
     constructor(private http: HttpClient) { }
 
     getDocuments(): void {
-        this.http.get<{ message: string; documents: Document[] }>(this.documentsUrl)
+        this.http.get<Document[]>(this.documentsUrl)
             .subscribe(
-                (responseData) => {
-                    this.documents = responseData.documents || [];
+                (documents: Document[]) => {
+                    this.documents = documents;
                     this.maxDocumentId = this.getMaxId();
                     this.sortAndSend();
                 },
                 (error: any) => {
-                    console.error(error);
+                    console.error("GET documents failed:", error);
                 }
             );
     }

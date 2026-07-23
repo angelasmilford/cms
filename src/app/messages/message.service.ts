@@ -16,16 +16,16 @@ export class MessageService {
 
     constructor(private http: HttpClient) { }
 
-    getMessages() {
-        this.http.get<{ message: string; messages: Message[] }>(this.messagesUrl)
+    getMessages(): void {
+        this.http.get<Message[]>(this.messagesUrl)
             .subscribe(
-                (responseData) => {
-                    this.messages = responseData.messages || [];
+                (messages: Message[]) => {
+                    this.messages = messages;
                     this.maxMessageId = this.getMaxId();
                     this.sortAndSend();
                 },
                 (error: any) => {
-                    console.error(error);
+                    console.error("GET messages failed:", error);
                 }
             );
     }
