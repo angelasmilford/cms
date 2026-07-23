@@ -101,7 +101,7 @@
         <div class="col-xs-12 form-group">
           <div 
             class="alert alert-danger" 
-            *ngIf="!name.valid && !email.valid"
+            *ngIf="!name.valid || !email.valid"
           >
             The Name and Email fields are required.
           </div>
