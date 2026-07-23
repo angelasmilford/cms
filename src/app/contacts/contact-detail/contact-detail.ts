@@ -33,10 +33,26 @@ export class ContactDetail {
   }
 
   onDelete() {
-    if(this.contact) {
-      this.contactService.deleteContact(this.contact);
-      
-      this.router.navigate(['/contacts']);
+    if (!this.contact) {
+      return;
     }
+
+    this.contactService.deleteContact(this.contact)?.subscribe(
+      () => {
+        const pos = this.contactService.contacts.findIndex(
+          c => c.id === this.contact.id
+        );
+
+        if (pos >= 0) {
+          this.contactService.contacts.splice(pos, 1);
+          this.contactService.sortAndSend();
+        }
+
+        this.router.navigate(['/contacts']);
+      },
+      error => {
+        console.error('Delete failed:', error);
+      }
+    );
   }
 }

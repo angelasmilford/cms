@@ -58,23 +58,17 @@ export class ContactService {
     }
 
     deleteContact(contact: Contact) {
-        if(!contact) {
+        if (!contact) {
             return;
         }
 
         const pos = this.contacts.findIndex(c => c.id === contact.id);
 
-        if(pos < 0) {
+        if (pos < 0) {
             return;
         }
 
-        this.http.delete(this.contactsUrl + '/' + contact.id)
-        .subscribe(
-            (response: Response) => {
-                this.contacts.splice(pos, 1);
-                this.sortAndSend();
-            }
-        );
+        return this.http.delete(this.contactsUrl + '/' + contact.id);
     }
 
     addContact(newContact: Contact) {
