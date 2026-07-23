@@ -10,7 +10,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class DocumentService {
     documentSelectedEvent = new EventEmitter<Document>();
     documentChangedEvent = new EventEmitter<Document[]>();
-    documentListChangedEvent = new Subject<Document[]>();
     maxDocumentId: number;
 
     documents: Document[] = [];
@@ -68,14 +67,7 @@ export class DocumentService {
             return;
         }
 
-        // delete from database
-        this.http.delete(this.documentsUrl + '/' + document.id)
-        .subscribe(() => {
-            (response: Response) => {
-                this.documents.splice(pos, 1);
-                this.sortAndSend();
-            }
-        });
+        return this.http.delete(this.documentsUrl + '/' + document.id);
     }
 
     addDocument(newDocument: Document) {
@@ -147,6 +139,6 @@ export class DocumentService {
             return 0;
         });
 
-        this.documentListChangedEvent.next(this.documents.slice());
+        this.documentChangedEvent.emit(this.documents.slice());
     }
 }

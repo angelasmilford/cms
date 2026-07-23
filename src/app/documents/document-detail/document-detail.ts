@@ -45,10 +45,26 @@ export class DocumentDetail {
   }
 
   onDelete() {
-    if(this.document) {
-      this.documentService.deleteDocument(this.document);
-      
-      this.router.navigate(['/documents']);
+    if (!this.document) {
+      return;
     }
+
+    this.documentService.deleteDocument(this.document)?.subscribe(
+      () => {
+        const pos = this.documentService.documents.findIndex(
+          d => d.id === this.document!.id
+        );
+
+        if (pos >= 0) {
+          this.documentService.documents.splice(pos, 1);
+          this.documentService.sortAndSend();
+        }
+
+        this.router.navigate(['/documents']);
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 }
