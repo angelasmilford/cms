@@ -20,10 +20,10 @@ export class ContactService {
     constructor(private http: HttpClient) { }
 
     getContacts(): void {
-        this.http.get<{ message: string; contacts: Contact[] }>(this.contactsUrl)
+        this.http.get<Contact[]>(this.contactsUrl)
             .subscribe(
-                responseData => {
-                    this.contacts = responseData.contacts || [];
+                (contacts: Contact[]) => {
+                    this.contacts = contacts;
                     this.maxContactId = this.getMaxId();
                     this.sortAndSend();
                 },
@@ -34,20 +34,14 @@ export class ContactService {
     }
 
     getContact(id: string) {
-        // FOR each contact in the contacts list
         for(let contact of this.contacts) {
-            // IF contact.id equals the id THEN
             if(contact.id === id) {
-            // RETURN contact
                 return contact;
-            // ENDIF
             }
-        // ENDFOR
         }
 
-        // RETURN null
         return null;
-    } 
+    }
 
     getMaxId(): number {
         let maxId = 0;
@@ -147,6 +141,6 @@ export class ContactService {
             return 0;
         });
 
-        this.contactListChangedEvent.next(this.contacts.slice());
+        this.contactChangedEvent.next(this.contacts.slice());
     }
 }
