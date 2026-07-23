@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Message } from '../message.model';
 
 import { MessageService } from '../message.service';
+import { ContactService } from '../../contacts/contact.service';
 
 @Component({
   selector: 'app-message-list',
@@ -13,18 +14,19 @@ import { MessageService } from '../message.service';
 export class MessageList {
   messages: Message[] = [];
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService,
+              private contactService: ContactService
+  ) { }
 
   ngOnInit() {
-    // this.messages = this.messageService.getMessages();
+      this.messageService.messageChangedEvent
+          .subscribe(
+              (messages: Message[]) => {
+                  this.messages = messages;
+              }
+          );
 
-    this.messageService.messageChangedEvent
-      .subscribe(
-        (messages: Message[]) => {
-          this.messages = messages;
-        }
-      )
-
+      this.contactService.getContacts();
       this.messageService.getMessages();
   }
 

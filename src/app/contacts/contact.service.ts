@@ -35,7 +35,7 @@ export class ContactService {
 
     getContact(id: string) {
         for(let contact of this.contacts) {
-            if(contact.id === id) {
+            if(contact._id === id || contact.id === id) {
                 return contact;
             }
         }
@@ -121,7 +121,7 @@ export class ContactService {
             { headers: headers }
         )
         .subscribe(
-            (response: Response) => {
+            () => {
                 this.contacts[pos] = newContact;
                 this.sortAndSend();
             }
