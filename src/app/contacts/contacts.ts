@@ -7,7 +7,6 @@ import { ContactService } from '../contacts/contact.service';
   standalone: false,
   templateUrl: './contacts.html',
   styles: ``,
-  providers: [ContactService]
 })
 export class Contacts {
   selectedContact: Contact;

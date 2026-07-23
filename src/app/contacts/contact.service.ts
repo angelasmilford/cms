@@ -67,14 +67,14 @@ export class ContactService {
         if(pos < 0) {
             return;
         }
-        
+
         this.http.delete(this.contactsUrl + '/' + contact.id)
-        .subscribe(() => {
+        .subscribe(
             (response: Response) => {
                 this.contacts.splice(pos, 1);
                 this.sortAndSend();
             }
-        });
+        );
     }
 
     addContact(newContact: Contact) {
