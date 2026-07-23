@@ -11,7 +11,7 @@ import { MessageService } from '../message.service';
   styles: ``,
 })
 export class MessageEdit {
-  currentSender: string = 'Angela';
+  currentSender: string = '6a61881efc2d4fe857810b70';
 
   @ViewChild('subject') subjectInputRef: ElementRef;
   @ViewChild('msgText') messageInputRef: ElementRef;
@@ -27,7 +27,7 @@ export class MessageEdit {
     const msgText = this.messageInputRef.nativeElement.value;
 
     const newMessage = new Message(
-      '1', 
+      '', 
       subject, 
       msgText, 
       this.currentSender
