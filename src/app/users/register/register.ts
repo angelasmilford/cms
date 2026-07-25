@@ -15,6 +15,7 @@ export class Register {
   email = '';
   password = '';
   role = 'user';
+  showPassword = false;
 
   constructor(
     private userService: UserService,
