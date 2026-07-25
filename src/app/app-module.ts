@@ -22,6 +22,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { DocumentEdit } from './documents/document-edit/document-edit';
 import { ContactEdit } from './contacts/contact-edit/contact-edit';
 import { ContactsFilterPipe } from './contacts/contacts-filter-pipe';
+import { Users } from './users/users';
+import { UserList } from './users/user-list/user-list';
+import { UserEdit } from './users/user-edit/user-edit';
+import { Login } from './users/login/login';
+import { Register } from './users/register/register';
 
 @NgModule({
   declarations: [
@@ -42,6 +47,11 @@ import { ContactsFilterPipe } from './contacts/contacts-filter-pipe';
     DocumentEdit,
     ContactEdit,
     ContactsFilterPipe,
+    Users,
+    UserList,
+    UserEdit,
+    Login,
+    Register,
   ],
   imports: [BrowserModule, FormsModule, HttpClientModule, DropdownDirective, AppRoutingModule],
   providers: [provideBrowserGlobalErrorListeners()],
